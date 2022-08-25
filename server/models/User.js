@@ -2,13 +2,11 @@ const {Schema,model}=require('mongoose')
 
 // Create User Schema
 const userSchema=new Schema({
-    firstName:{
+    
+    userName:{
         type:String,
-        required:true
-    },
-    lastName:{
-        type:String,
-        required:true
+        required:true,
+        unique:true
     },
     phoneNo:{
         type:String,
@@ -23,10 +21,13 @@ const userSchema=new Schema({
         type:String,
         required:true
     },
+    isAdmin:{
+        type: Boolean,
+        default:false
+    }
 },
 {
     timestamps:true
 })
 
-const Users=model('users',userSchema)
-module.exports=Users
+module.exports=mongoose.model('User',productSchema)
