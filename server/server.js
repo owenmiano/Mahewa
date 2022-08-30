@@ -5,7 +5,8 @@ require('dotenv').config()
 const mongoose=require('mongoose')
 const connectDB=require('./dbConn')
 const port=process.env.PORT;
-
+const auth=require('./routes/auth')
+const user=require('./routes/user')
 // Initialize  middlewares
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
@@ -16,6 +17,13 @@ if(process.env.NODE_ENV ==='development'){
 
 // connect Database
 connectDB();
+
+// apis
+app.use('/auth',auth)
+app.use('/user',user)
+
+
+
 
 // test db connection
 

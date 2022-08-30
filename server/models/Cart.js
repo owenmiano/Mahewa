@@ -1,7 +1,6 @@
-const {Schema,model}=require('mongoose')
-
+const mongoose = require('mongoose');
 // Create User Schema
-const cartSchema=new Schema({
+const cartSchema=mongoose.Schema({
     
     userId:{
         type:String,
