@@ -36,7 +36,16 @@ try {
         email,
         password:hashedPassword
       })
-     return res.status(201).json({message:`Hurray! you have registered successfully.`})
+      const token=await JWT.sign({
+        id:Users._id,
+        isAdmin:Users.isAdmin,
+    },
+        process.env.TOKEN_SECRET,{
+        expiresIn:"2d"
+      })
+      const {password,...others}=newUser._doc
+
+     return res.status(201).json({message:`Hurray! you have registered successfully.`,...others,token})
     } catch (error) {
       console.log(error.message)
       return res.status(500).json({

@@ -8,8 +8,8 @@ router.post("/register-user",[
   check("password","Please provide a password that is greater than 5 characters").isLength({
       min:6
   }),
-  check("userName","UserName field is required").exists(),
-  check("phoneNo","PhoneNumber is required").exists(),
+  check("userName","UserName field is required").contains(),
+  check("phoneNo","PhoneNumber is required").contains(),
 ],authController.registerUser)
 
 // Users Login Route

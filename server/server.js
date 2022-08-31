@@ -1,15 +1,20 @@
 const express=require('express')
 const app =express();
 const morgan =require('morgan')
+const cors=require('cors')
 require('dotenv').config()
 const mongoose=require('mongoose')
 const connectDB=require('./dbConn')
 const port=process.env.PORT;
 const auth=require('./routes/auth')
 const user=require('./routes/user')
+
+
 // Initialize  middlewares
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
+
+app.use(cors())
 
 if(process.env.NODE_ENV ==='development'){
     app.use(morgan('dev'))

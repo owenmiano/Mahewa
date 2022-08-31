@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react'
-import {View,Text} from 'react-native'
-import SplashScreen from 'react-native-splash-screen'
-import LoginScreen from './src/screens/LoginScreen'
-import RegisterScreen from './src/screens/RegisterScreen'
+import { StatusBar } from 'react-native'
+import Navigation from './src/components/Navigation'
+import { AuthProvider } from './src/context/AuthContext'
+
 
 function App() {
-
-useEffect(()=>{
-  SplashScreen.hide()
-},[])
-
-  return (
-  //  <LoginScreen/>
-  <RegisterScreen/>
+return (
+         <AuthProvider>
+          {/* <StatusBar backgroundColor="#06bcee"/> */}
+            <Navigation/>
+        </AuthProvider>
   )
 }
 
