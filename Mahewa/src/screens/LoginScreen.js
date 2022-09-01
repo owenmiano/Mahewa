@@ -10,7 +10,7 @@ import { AuthContext } from '../context/AuthContext'
 function LoginScreen({navigation}) {
   const [email,setEmail]=useState(null)
   const [password,setPassword]=useState(null)
-  const {isLoading,login}=useContext(AuthContext)
+  const {isLoading,login,errors}=useContext(AuthContext)
 
   return (
      <SafeAreaView style={{flex:1,justifyContent:'center'}}>
@@ -28,7 +28,7 @@ function LoginScreen({navigation}) {
         }}>
         Login
         </Text>
-        <View style={{flexDirection:'row',borderBottomColor:'#ccc',borderBottomWidth:1,paddingBottom:8,marginBottom:25,alignItems:'center'}}>
+        <View style={{flexDirection:'row',borderWidth:0.5,paddingBottom:8,marginBottom:25,alignItems:'center',backgroundColor:'#F3F4FB',borderColor:'#7978B5'}}>
           <Icon name='email' style={{fontSize:24,color:"black",marginRight:5}}/>
           <TextInput 
           placeholder='Enter your email address' 
@@ -36,9 +36,10 @@ function LoginScreen({navigation}) {
           onChangeText={text=>setEmail(text)}
           placeholderTextColor='#000'
           autoCapitalize = 'none'
+         
           />
         </View>
-        <View style={{flexDirection:'row',borderBottomColor:'#ccc',borderBottomWidth:1,paddingBottom:8,marginBottom:25,alignItems:'center'}}>
+        <View style={{flexDirection:'row',borderWidth:0.5,backgroundColor:'#F3F4FB',paddingBottom:8,marginBottom:25,alignItems:'center'}}>
           <Icon name='lock' style={{fontSize:24,color:"black",marginRight:5}}/>
           <TextInput 
           placeholder='Enter your password'
@@ -47,8 +48,13 @@ function LoginScreen({navigation}) {
           placeholderTextColor='#000'
           autoCapitalize = 'none'
            />
+           
           </View>
-         
+          {errors ? (
+          <Text style={{color:COLORS.red,fontSize:12,marginBottom:3}}>{errors}</Text>
+         ):
+           null
+         }
           <TouchableOpacity 
          style={{
            backgroundColor:'blue',

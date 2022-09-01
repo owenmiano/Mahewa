@@ -14,7 +14,7 @@ function RegisterScreen({navigation}) {
   const [phoneNo,setphoneNo]=useState(null)
   const [password,setPassword]=useState(null)
 
-  const {isLoading,register}=useContext(AuthContext)
+  const {isLoading,register,errors}=useContext(AuthContext)
   return (
      <SafeAreaView style={{flex:1,justifyContent:'center'}}>
       <Spinner visible={isLoading}/>
@@ -37,7 +37,7 @@ function RegisterScreen({navigation}) {
         }}>
         Register
         </Text>
-        <View style={{flexDirection:'row',borderBottomColor:'#ccc',borderBottomWidth:1,paddingBottom:8,marginBottom:25,alignItems:'center'}}>
+        <View style={{flexDirection:'row',borderWidth:0.5,paddingBottom:8,marginBottom:25,alignItems:'center',backgroundColor:'#F3F4FB'}}>
           <Icon name='account-circle' style={{fontSize:24,color:"black",marginRight:5}}/>
           <TextInput
            placeholder='Enter your username'
@@ -45,7 +45,7 @@ function RegisterScreen({navigation}) {
            onChangeText={text=>setUserName(text)}
             />
           </View>
-          <View style={{flexDirection:'row',borderBottomColor:'#ccc',borderBottomWidth:1,paddingBottom:8,marginBottom:25,alignItems:'center'}}>
+          <View style={{flexDirection:'row',borderWidth:0.5,paddingBottom:8,marginBottom:25,alignItems:'center',backgroundColor:'#F3F4FB'}}>
           <Icon name='phone' style={{fontSize:24,color:"black",marginRight:5}}/>
           <TextInput 
           placeholder='Enter your Phone Number' 
@@ -54,7 +54,7 @@ function RegisterScreen({navigation}) {
           onChangeText={text=>setphoneNo(text)}
           />
           </View>
-        <View style={{flexDirection:'row',borderBottomColor:'#ccc',borderBottomWidth:1,paddingBottom:8,marginBottom:25,alignItems:'center'}}>
+        <View style={{flexDirection:'row',borderWidth:0.5,paddingBottom:8,marginBottom:25,alignItems:'center',backgroundColor:'#F3F4FB'}}>
           <Icon name='email' style={{fontSize:24,color:"black",marginRight:5}}/>
           <TextInput 
           placeholder='Enter your email address' 
@@ -65,7 +65,7 @@ function RegisterScreen({navigation}) {
           />
 
         </View>
-        <View style={{flexDirection:'row',borderBottomColor:'#ccc',borderBottomWidth:1,paddingBottom:8,marginBottom:25,alignItems:'center'}}>
+        <View style={{flexDirection:'row',borderWidth:0.5,paddingBottom:8,marginBottom:25,alignItems:'center',backgroundColor:'#F3F4FB'}}>
           <Icon name='lock' style={{fontSize:24,color:"black",marginRight:5}}/>
           <TextInput 
           placeholder='Enter your password' 
@@ -75,7 +75,11 @@ function RegisterScreen({navigation}) {
           autoCapitalize = 'none'
           />
           </View>
-         
+          {errors ? (
+          <Text style={{color:COLORS.red,fontSize:12,marginBottom:3}}>{errors}</Text>
+         ):
+           null
+         }
           <TouchableOpacity 
          style={{
            backgroundColor:'blue',

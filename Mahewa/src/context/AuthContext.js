@@ -6,7 +6,8 @@ import { BASE_URL } from '../components/config'
 export const AuthContext=createContext()
 
 export const AuthProvider=({children})=>{
-   const[userInfo,setUserInfo]=useState({})
+  const [errors,setErrors]=useState()
+  const[userInfo,setUserInfo]=useState({})
    const [isLoading,setIsLoading]=useState(false)
    const [splashLoading,setSplashLoading]=useState(false)
 
@@ -60,7 +61,10 @@ export const AuthProvider=({children})=>{
        })
     } catch (error) {
         setIsLoading(false)
-        console.log(`login error:${error.message}`)
+        let makosas=JSON.stringify(error.response.data.errors.map((error)=>error.msg))
+        setErrors(makosas)
+        console.log(makosas)
+        // console.log(JSON.stringify(error.response.data.errors.map(error=>error.msg)))
     }
   }
 
@@ -68,13 +72,13 @@ export const AuthProvider=({children})=>{
   const logout=async()=>{
     try {
         setIsLoading(true)
-        await axios.post(`${BASE_URL}`,
+        await axios.post(`${BASE_URL}/auth/logout-user`,
         {},
         {
-            headers:{Authorization: `Bearer ${userInfo.token}` }
+            headers:{token: `Bearer ${userInfo.token}` }
         }
         ).then(res=>{
-            console.log(res.data)
+            console.log(res.data.message)
             AsyncStorage.removeItem('userInfo')
             setUserInfo({})
             setIsLoading(false)
@@ -109,6 +113,7 @@ useEffect(()=>{
   return (
       <AuthContext.Provider 
       value={{
+        errors,
         isLoading,
         splashLoading,
         userInfo,
