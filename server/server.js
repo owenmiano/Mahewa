@@ -4,6 +4,7 @@ const app =express();
 const morgan =require('morgan')
 require('dotenv').config()
 const mongoose=require('mongoose')
+const cookieParser = require('cookie-parser')
 const connectDB=require('./dbConn')
 const port=process.env.PORT;
 const auth=require('./routes/auth')
@@ -14,7 +15,8 @@ const user=require('./routes/user')
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
-app.use(cors)
+app.use(cors())
+app.use(cookieParser());
 
 if(process.env.NODE_ENV ==='development'){
     app.use(morgan('dev'))

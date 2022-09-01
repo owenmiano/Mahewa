@@ -1,39 +1,22 @@
 const  JWT =require('jsonwebtoken')
 
-const verifyToken=async(req,res,next)=>{
-    const authHeader=req.headers.token
-    if(!authHeader){
-        return  res.status(401).json({
-            errors:[
-                {
-                    "message":"You are not authenticated"
-                }
-            ]
-            
-        })
+const verifyToken =async (req, res, next) => {
+    const authHeader = req.headers.token;
+    if (authHeader) {
+      const token = authHeader.split(" ")[1];
+      JWT.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+        if (err) res.status(403).json("Token is not valid!");
+        req.user = user;
+        next();
+      });
+    } else {
+      return res.status(401).json("You are not authenticated!");
     }
-
-try {
-   
-    const token=authHeader.split(' ')[1];
-    await JWT.verify(token,process.env.TOKEN_SECRET);
-    req.user=user;
-    next();
-} catch (error) {
-    return  res.status(403).json({
-        error:[
-            {
-                "message":"Token is Invalid"
-            }
-        ]
-        
-    })
-}
-}
+  };
 
 const verifyTokenAndAuthorization=(req,res,next)=>{
     verifyToken(req,res,()=>{
-        if(req.user.id===req.params.id || req.user.isAdmin){
+        if(req.user.id === req.params.id || req.user.isAdmin){
             next()
         }else{
             res.status(403).json("You are not permitted to do that")
@@ -56,3 +39,4 @@ module.exports={
     verifyTokenAndAuthorization,
     verifyTokenAndAdmin
 }
+

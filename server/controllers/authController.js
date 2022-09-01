@@ -41,8 +41,13 @@ try {
         isAdmin:Users.isAdmin,
     },
         process.env.TOKEN_SECRET,{
-        expiresIn:"2d"
+        expiresIn:360000
       })
+     
+      res.cookie("token",token,{
+        httpOnly:true
+      })
+
       const {password,...others}=newUser._doc
 
      return res.status(201).json({message:`Hurray! you have registered successfully.`,...others,token})
@@ -78,7 +83,7 @@ exports.loginUser=async(req,res)=>{
         return res.status(404).json({
             errors:[
               {
-                  "message":"Invalid login credentials"
+                  "msg":"Invalid login credentials"
               }
           ]
           })
@@ -92,7 +97,7 @@ exports.loginUser=async(req,res)=>{
          return  res.status(403).json({
                errors:[
                    {
-                       "message":"Incorrect password"
+                       "msg":"Incorrect password"
                    }
                ]
                
@@ -104,9 +109,11 @@ exports.loginUser=async(req,res)=>{
        isAdmin:user.isAdmin,
    },
        process.env.TOKEN_SECRET,{
-       expiresIn:"2d"
+       expiresIn:360000
      })
-   
+     res.cookie("token",token,{
+      httpOnly:true
+    })
      const {password,...others}=user._doc
 
      return res.status(200).json({message:"Hurray! You are now logged in",...others,token})
@@ -122,4 +129,22 @@ exports.loginUser=async(req,res)=>{
    }
   
     
+}
+
+// Logout User
+exports.logout=(req,res)=>{
+    try {
+      res.clearCookie("token")
+     return res.json({message:"You have signed out successfully"})
+    } catch (error) {
+      console.log(error.message)
+        return res.status(500).json({
+        errors:[
+          {
+              "message":"Unable to sign out of your account"
+          }
+      ]
+      })
+    }
+
 }
