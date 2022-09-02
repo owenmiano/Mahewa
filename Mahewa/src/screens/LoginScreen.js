@@ -15,6 +15,7 @@ function LoginScreen({navigation}) {
   return (
      <SafeAreaView style={{flex:1,justifyContent:'center'}}>
       <Spinner visible={isLoading}/>
+      
         <KeyboardAvoidingView>  
         <View style={{paddingHorizontal:25}}> 
         <View>

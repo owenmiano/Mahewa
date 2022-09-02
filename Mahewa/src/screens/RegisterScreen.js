@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,Alert } from 'react-native'
 import logo from '../assets/images/logo.png'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import COLORS from '../components/colors'
@@ -18,6 +18,7 @@ function RegisterScreen({navigation}) {
   return (
      <SafeAreaView style={{flex:1,justifyContent:'center'}}>
       <Spinner visible={isLoading}/>
+
         <KeyboardAvoidingView>  
         <ScrollView 
         contentContainerStyle={{

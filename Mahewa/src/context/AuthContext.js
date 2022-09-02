@@ -1,11 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
+import {Alert } from 'react-native'
+
 import React,{createContext, useEffect, useState} from 'react'
 import { BASE_URL } from '../components/config'
+import NetInfo from "@react-native-community/netinfo";
 
 export const AuthContext=createContext()
 
 export const AuthProvider=({children})=>{
+  const [isConnected, setIsConnected] = useState() 
   const [errors,setErrors]=useState()
   const[userInfo,setUserInfo]=useState({})
    const [isLoading,setIsLoading]=useState(false)
@@ -15,7 +19,7 @@ export const AuthProvider=({children})=>{
  const register=async(password,email,userName,phoneNo)=>{
     try{
         setIsLoading(true)
-   await axios.post(`${BASE_URL}/auth/register-user`,{
+        await axios.post(`${BASE_URL}/auth/register-user`,{
         password,email,userName,phoneNo 
     },
     {
@@ -35,7 +39,20 @@ export const AuthProvider=({children})=>{
 }  catch (error) {
     // if(error.response) console.log(error.response.data);
     setIsLoading(false)
-    console.log(`register error:${error.message}`)
+    // let makosas=JSON.stringify(error.response.data.errors.map((error)=>error.msg))
+    // setErrors(makosas)
+    console.log(error)
+    if(error.message === 'Network Error'){
+      Alert.alert("You are Offline!","Please Connect To the Internet",
+      [
+        {
+            text:"Try Again",
+        }
+    ]
+      )
+    }
+
+  
 }
  }
 
@@ -43,7 +60,7 @@ export const AuthProvider=({children})=>{
   const login=async(email,password)=>{
     try {
        setIsLoading(true) 
-       await axios.post(`${BASE_URL}/auth/login-user`,{
+      await axios.post(`${BASE_URL}/auth/login-user`,{
         email,password,
         },
         {
@@ -61,10 +78,20 @@ export const AuthProvider=({children})=>{
        })
     } catch (error) {
         setIsLoading(false)
-        let makosas=JSON.stringify(error.response.data.errors.map((error)=>error.msg))
-        setErrors(makosas)
-        console.log(makosas)
-        // console.log(JSON.stringify(error.response.data.errors.map(error=>error.msg)))
+        // let makosas=JSON.stringify(error.response.data.errors.map((error)=>error.msg))
+        // setErrors(makosas)
+        // console.log(makosas)
+        console.log(error.message)
+      if(error.message === 'Network Error'){
+        Alert.alert("You are Offline!","Please Connect To the Internet",
+        [
+          {
+              text:"Try Again",
+          }
+      ]
+        )
+      }
+
     }
   }
 
@@ -106,6 +133,21 @@ const isLoggedIn=async()=>{
   }
 
 }
+
+// check network status
+useEffect(()=>{
+  // Subscribe to network state updates
+    const network=NetInfo.addEventListener((state) => {
+      setIsConnected(state.isConnected)
+    
+    })   
+    return () => {
+      // Unsubscribe to network state updates
+      network();
+    };
+  })
+
+
 useEffect(()=>{
     isLoggedIn()
 },[])
@@ -113,6 +155,7 @@ useEffect(()=>{
   return (
       <AuthContext.Provider 
       value={{
+        isConnected,
         errors,
         isLoading,
         splashLoading,
