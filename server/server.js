@@ -9,6 +9,7 @@ const connectDB=require('./dbConn')
 const port=process.env.PORT;
 const auth=require('./routes/auth')
 const user=require('./routes/user')
+const product=require('./routes/product')
 
 
 // Initialize  middlewares
@@ -28,6 +29,7 @@ connectDB();
 // apis
 app.use('/auth',auth)
 app.use('/user',user)
+app.use('/product',product)
 
 
 

@@ -19,6 +19,9 @@ const mongoose = require('mongoose');
         type:String,
         required:true
     },
+    category:{
+        type:Array,
+    },
     price:{
         type: Number,
         required:true
