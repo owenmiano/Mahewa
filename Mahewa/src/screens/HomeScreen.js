@@ -9,7 +9,6 @@ function HomeScreen() {
   return (
     <View style={styles.container}>
        <Spinner visible={isLoading}/>
-        <Text>HomeScreen</Text>
         <Text >Welcome,{userInfo.userName}</Text>
         <TouchableOpacity onPress={logout}>
           <Text>Logout</Text>
