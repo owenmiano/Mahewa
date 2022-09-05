@@ -6,11 +6,11 @@ exports.updateProfile=async(req,res)=>{
         req.body.password=await bcrypt.hash( req.body.password,10)
        }
    try {
-    const updatedUser=await user.findByIdAndUpdate(req.params.id,{ 
+    const updatedUser=await Users.findByIdAndUpdate(req.params.id,{ 
         $set:req.body
     },{new:true})
-    const {password,...others}=updatedUser._doc
-    return res.status(200).json(...others)
+   const {password,...others}=updatedUser._doc
+    return res.status(200).json({message:"Profile has been updated successfully",...others})
    } catch (error) {
     console.log(error.message)
     return res.status(500).json({
