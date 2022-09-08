@@ -9,7 +9,10 @@ const mongoose = require('mongoose');
 
     },
     brand:{
-        type:Array,
+        type:String,
+    },
+    category:{
+        type:String,
     },
     image:{
         type:String,
@@ -18,9 +21,6 @@ const mongoose = require('mongoose');
     desc:{
         type:String,
         required:true
-    },
-    category:{
-        type:Array,
     },
     price:{
         type: Number,

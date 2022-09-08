@@ -14,13 +14,7 @@ exports.updateProfile=async(req,res)=>{
     return res.status(200).json({message:"Profile has been updated successfully",...others})
    } catch (error) {
     console.log(error.message)
-    return res.status(500).json({
-      errors:[
-        {
-            "message":"Unable to update your account"
-        }
-    ]
-    })
+    return res.status(500).json({message:'Unable to update your profile'})
    }
 }
 
