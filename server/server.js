@@ -10,6 +10,7 @@ const port=process.env.PORT;
 const auth=require('./routes/auth')
 const user=require('./routes/user')
 const product=require('./routes/product')
+const admin=require('./routes/admin')
 
 
 // Initialize  middlewares
@@ -30,6 +31,7 @@ connectDB();
 app.use('/auth',auth)
 app.use('/user',user)
 app.use('/product',product)
+app.use('/admin',admin)
 
 
 

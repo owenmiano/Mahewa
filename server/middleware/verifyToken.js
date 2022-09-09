@@ -24,12 +24,20 @@ const verifyTokenAndAuthorization=(req,res,next)=>{
     })
 }
 
+const verifyAdmin=(req,res,next)=>{
+       if(req.user.isAdmin){
+            next()
+        }else{
+            res.status(403).json("You are not authorised to do that")
+        }
+}
+
 const verifyTokenAndAdmin=(req,res,next)=>{
     verifyToken(req,res,()=>{
         if(req.user.isAdmin){
             next()
         }else{
-            res.status(403).json("You are not permitted to do that")
+            res.status(403).json("You are not authorised to do that")
         }
     })
 }
@@ -37,6 +45,7 @@ const verifyTokenAndAdmin=(req,res,next)=>{
 module.exports={
     verifyToken,
     verifyTokenAndAuthorization,
-    verifyTokenAndAdmin
+    verifyTokenAndAdmin,
+    verifyAdmin
 }
 
