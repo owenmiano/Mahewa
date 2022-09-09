@@ -8,7 +8,7 @@ const {password,email,userName,phoneNo}=req.body
 const emailExist=await Users.findOne({email});
 
  if(emailExist){
-    return res.status(403).json({"message":"This user already exists"})
+    return res.status(403).json({message:"This user already exists"})
 
  }
  //    Get the hashed Password
@@ -38,7 +38,7 @@ const emailExist=await Users.findOne({email});
       return res.status(201).json({message:`Admin account created successfully!`,...others,token})
      } catch (error) {
        console.log(error.message)
-       return res.status(500).json({"message":"Unable to create your account"})
+       return res.status(500).json({message:"Unable to create your account"})
 
      }
 }
@@ -53,7 +53,7 @@ try {
     // }
     const user=await Users.findOne({email:req.body.email,isAdmin:true})
     if(!user){
-        return res.status(403).json({"message":"You are not authorised to access this portal!"})
+        return res.status(401).json({message:"You are not authorised to access this portal!"})
 
     }
  
@@ -62,7 +62,7 @@ try {
      let isMatch=await bcrypt.compare(req.body.password,user.password);
      // if password is incorrect
      if(!isMatch){
-        return res.status(403).json({"message":"Incorrect Password"})
+        return res.status(403).json({message:"Incorrect Password"})
 
          }
      // if password is correct
@@ -81,7 +81,7 @@ try {
      return res.status(200).json({message:"Hurray! You are now logged in",...others,token})
    } catch (error) {
     console.log(error.message)
-      return res.status(500).json({"message":"Unable to Login to your account"})
+      return res.status(500).json({message:"Unable to Login to your account"})
    }
   
 }   
