@@ -1,6 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-
+h1{
+  text-align: center;
+}
 body {
   background: #76b852;
   display: flex;
@@ -44,6 +46,7 @@ span {
   font-size: 14px;
   color: red;
   margin-bottom: 15px;
+  text-align: center;
 }
 
 input {
