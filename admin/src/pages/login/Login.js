@@ -1,11 +1,11 @@
 import axios from 'axios'
-import React, { useState,useRef,useEffect,useContext} from 'react'
-import { AuthContext } from '../../context/AuthContext'
+import React, { useState,useRef,useEffect} from 'react'
 import  './login.css'
 import {BASE_URL} from '../../components/Api'
+import useAuth from '../../hooks/UseAuth'
 
 function Login() {
-  const { setAuth } = useContext(AuthContext)
+  const { setAuth } = useAuth()
   const emailRef=useRef()
   const errRef=useRef()
 
@@ -35,6 +35,9 @@ function Login() {
       )
       let userInfo=response.data;
       setAuth(userInfo)
+      localStorage.setItem('token',JSON.stringify(userInfo.token))
+      setEmail("")
+      setPassword("")
       console.log(userInfo.userName)
        } catch (error) {
         console.log(error.response.data.message)
