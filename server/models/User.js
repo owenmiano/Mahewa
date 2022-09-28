@@ -8,7 +8,7 @@ const userSchema=mongoose.Schema({
         unique:true
     },
     phoneNo:{
-        type:Number,
+        type:String,
         required:true
     },
     email:{
