@@ -1,12 +1,12 @@
-import React from 'react'
-import useAuth from '../../hooks/UseAuth'
+import React, { useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext'
 
 
 function Home() {
-  const { auth } = useAuth()
-console.log(auth.userName)
+  const { auth } = useContext(AuthContext)
+  const {userName}=auth
   return (
-    <div><p>Welcome admin:{auth.userName}</p></div>
+    <div><p>Welcome,{userName}</p></div>
   )
 }
 

@@ -1,13 +1,19 @@
 import axios from 'axios'
-import React, { useState,useRef,useEffect} from 'react'
+import React, { useState,useRef,useEffect, useContext} from 'react'
 import  './login.css'
 import {BASE_URL} from '../../components/Api'
-import useAuth from '../../hooks/UseAuth'
+import { AuthContext } from '../../context/AuthContext'
+import {useNavigate,useLocation} from "react-router-dom"
 
 function Login() {
-  const { setAuth } = useAuth()
+  const { setAuth } = useContext(AuthContext)
   const emailRef=useRef()
   const errRef=useRef()
+
+  const navigate=useNavigate();
+  const location=useLocation();
+  const from =location.state?.from?.pathname || "/"
+
 
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
@@ -38,7 +44,8 @@ function Login() {
       localStorage.setItem('token',JSON.stringify(userInfo.token))
       setEmail("")
       setPassword("")
-      console.log(userInfo.userName)
+      navigate(from, {replace: true})
+      console.log(userInfo)
        } catch (error) {
         console.log(error.response.data.message)
         setErrorMessage(error.response.data.message)
