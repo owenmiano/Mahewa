@@ -1,0 +1,9 @@
+.side-bar{
+    position: fixed;
+    background:blue;
+    width: 300px;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 30px 20px;
+    transition: width .2s ease-in;
+}
