@@ -1,26 +1,29 @@
 import Login from "./pages/login/Login";
-import './app.css'
 import {Routes,Route} from "react-router-dom"
 import Layout from "./components/Layout";
 import Missing from "./pages/Missing";
 import RequireAuth from "./components/RequireAuth";
-import Home from "./pages/home/Home";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Product from "./pages/products/Product";
+
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout/>} >
+      
          {/* Public routes */}
         <Route path="login" element={<Login/>} />
         
         {/* Private routes */}
+        <Route  element={<Layout/>} >
         <Route element={<RequireAuth/>}>
-          <Route path="/" element={<Home/>} />
+          <Route path="/" element={<Dashboard/>} />
+          <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/product" element={<Product/>} />
         </Route>
-        
-       
-        {/* catch all */}
-        <Route path="*" element={<Missing/>} />
       </Route>
+
+       {/* catch all */}
+       <Route path="*" element={<Missing/>} />
     </Routes>
   );
 }
