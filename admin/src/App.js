@@ -5,6 +5,7 @@ import Missing from "./pages/Missing";
 import RequireAuth from "./components/RequireAuth";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Product from "./pages/products/Product";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         
         {/* Private routes */}
         <Route  element={<Layout/>} >
-        <Route element={<RequireAuth/>}>
+        <Route  element={<RequireAuth/>}>
           <Route path="/" element={<Dashboard/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
           <Route path="/product" element={<Product/>} />
@@ -25,6 +26,7 @@ function App() {
        {/* catch all */}
        <Route path="*" element={<Missing/>} />
     </Routes>
+    
   );
 }
 
