@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
-import {Alert } from 'react-native'
+import {Alert,ToastAndroid } from 'react-native'
 
 import React,{createContext, useEffect, useState} from 'react'
 import { BASE_URL } from '../components/config'
@@ -34,7 +34,7 @@ export const AuthProvider=({children})=>{
         setUserInfo(userInfo)
         AsyncStorage.setItem('userInfo',JSON.stringify(userInfo))
         setIsLoading(false)
-       
+        ToastAndroid.show(`${userInfo.message}`, ToastAndroid.SHORT);
     })
 }  catch (error) {
     // if(error.response) console.log(error.response.data);
@@ -75,6 +75,8 @@ export const AuthProvider=({children})=>{
           setUserInfo(userInfo)
           AsyncStorage.setItem('userInfo',JSON.stringify(userInfo))
           setIsLoading(false)
+          ToastAndroid.show(`${userInfo.message}`, ToastAndroid.SHORT);
+
        })
     } catch (error) {
         setIsLoading(false)
@@ -105,10 +107,12 @@ export const AuthProvider=({children})=>{
             headers:{token: `Bearer ${userInfo.token}` }
         }
         ).then(res=>{
-            console.log(res.data.message)
+            let message=res.data.message
             AsyncStorage.removeItem('userInfo')
             setUserInfo({})
             setIsLoading(false)
+            ToastAndroid.show(`${message}`, ToastAndroid.SHORT);
+            // console.log(res.data.message)
         })
     } catch (error) {
         setIsLoading(false)

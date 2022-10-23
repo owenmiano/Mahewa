@@ -1,18 +1,47 @@
 import React from 'react'
 import HomeScreen from '../../screens/HomeScreen';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import ProfileScreen from '../../screens/ProfileScreen';
+import CustomDrawer from '../CustomDrawer';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function AppStack() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-    <Stack.Screen
+    <Drawer.Navigator 
+    drawerContent={props=><CustomDrawer {...props}/>} 
+    screenOptions={{
+      headerShown: false,
+      drawerActiveBackgroundColor:'#0096FF',
+      drawerActiveTintColor:'#fff',
+      drawerInactiveTintColor:'#333',
+      drawerLabelStyle:{
+        marginLeft:-25,
+        fontSize:15,
+        fontFamily:'Roboto-Medium',
+      }
+    }}
+    >
+    <Drawer.Screen
       name="Home"
       component={HomeScreen}
-      options={{headerShown: false}}
+      options={{
+        drawerIcon:({color})=>(
+           <Ionicons name="home-outline" size={22} color={color} />
+        )
+      }}
     />
-  </Stack.Navigator>
+    <Drawer.Screen
+      name="Profile"
+      component={ProfileScreen}
+      options={{
+        drawerIcon:({color})=>(
+           <Ionicons name="person-outline" size={22} color={color} />
+        )
+      }}
+    />
+  </Drawer.Navigator>
   )
 }
 

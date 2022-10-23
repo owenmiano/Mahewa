@@ -1,18 +1,12 @@
 import React,{useContext} from 'react'
 import { StyleSheet, Text,TouchableOpacity,View } from 'react-native'
-import { AuthContext } from '../context/AuthContext'
-import Spinner from 'react-native-loading-spinner-overlay'
 
 function HomeScreen() {
-  const {isLoading,userInfo,logout}=useContext(AuthContext)
 
   return (
     <View style={styles.container}>
-       <Spinner visible={isLoading}/>
-        <Text >Welcome,{userInfo.userName}</Text>
-        <TouchableOpacity onPress={logout}>
-          <Text>Logout</Text>
-        </TouchableOpacity>
+        <Text >HomeScreen</Text>
+        
     </View>
   )
 }
