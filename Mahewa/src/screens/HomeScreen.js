@@ -1,11 +1,12 @@
 import React,{useContext} from 'react'
 import { StyleSheet, Text,TouchableOpacity,View } from 'react-native'
+import Products from '../components/Products'
 
 function HomeScreen() {
 
   return (
     <View style={styles.container}>
-        <Text >HomeScreen</Text>
+        <Products/>
         
     </View>
   )
@@ -13,8 +14,7 @@ function HomeScreen() {
 const styles=StyleSheet.create({
   container:{
     flex:1,
-    alignItems:'center',
-    justifyContent:'center'
+    
   }
 })
 
