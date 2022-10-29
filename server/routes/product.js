@@ -35,9 +35,9 @@ router.delete('/delete/:id', verifyTokenAndAdmin,productController.deleteProduct
 
 
 // Find product
-router.get('/find/:id', verifyTokenAndAuthorization,productController.findProduct)
+router.get('/find/:id',productController.findProduct)
 
 // Find All product
-router.get('/', verifyTokenAndAuthorization,productController.findAllProducts)
+router.get('/',productController.findAllProducts)
 
 module.exports=router
