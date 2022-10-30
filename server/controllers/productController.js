@@ -10,7 +10,7 @@ exports.newProduct=async(req,res)=>{
         title,
         brand,
         category,
-        image:req.file.filename,
+        image:req.file.path,
         desc,
         price
       })

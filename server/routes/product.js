@@ -1,5 +1,5 @@
 const router=require("express").Router();
-const path = require('path');
+// const path = require('path');
 const { verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("../middleware/verifyToken");
 const productController = require("../controllers/productController");
 const multer=require('multer')
@@ -7,11 +7,11 @@ const multer=require('multer')
 // define storage for the images
 const storage=multer.diskStorage({
     // destination for files
-    destination:function(request,file,callback){
-        callback(null, path.join(__dirname,'../uploads/images'))
+    destination:function(req,file,callback){
+        callback(null, 'uploads')
     },
     // add back the extension
-    filename:function(request,file,callback){
+    filename:function(req,file,callback){
         callback(null,file.originalname)
     }
 })
