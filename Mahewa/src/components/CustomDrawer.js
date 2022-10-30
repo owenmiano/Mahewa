@@ -1,8 +1,7 @@
 import React,{useContext} from 'react'
-import { Image, ImageBackground, Text, View } from 'react-native'
+import { Image, Text, View } from 'react-native'
 import {DrawerContentScrollView,DrawerItemList} from '@react-navigation/drawer';
 import { AuthContext } from '../context/AuthContext';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Spinner from 'react-native-loading-spinner-overlay'
