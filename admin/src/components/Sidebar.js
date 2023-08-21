@@ -8,16 +8,18 @@ import {
   FaShoppingBag,
   FaThList
 }from "react-icons/fa";
+import {FiLogOut} from "react-icons/fi"
 import "./sidebar.css"
 import { NavLink } from 'react-router-dom';
 import {AuthContext} from "../context/AuthContext"
+import AdminNav from './AdminNav';
 
 
 function Sidebar({children}) {
   const[isOpen ,setIsOpen] = useState(false);
   const toggle = () => setIsOpen (!isOpen);
-  const { auth } = useContext(AuthContext)
-  const {userName}=auth;
+  const { user } = useContext(AuthContext)
+  // const {userName}=auth;
 
  const menuItem = [
    {
@@ -30,11 +32,18 @@ function Sidebar({children}) {
     path: "/product",
     icon:<FaThList/>
   },
+  {
+    name: "Logout",
+    path: "/login",
+    icon:<FiLogOut/>
+  },
  ];
 
 
-  return (
-    <div className="container">
+  return (    
+
+
+<div className="container">
       <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
         <div className="top_section">
           <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
@@ -45,7 +54,7 @@ function Sidebar({children}) {
           </div>
         </div>
         <div className="">
-            <p>Welcome, {userName}</p>
+            <p style={{ display: isOpen ? "block" : "none" }}>Welcome, {user?.userName}</p>
         </div>
         {menuItem.map((item, index) => (
           <NavLink
@@ -64,7 +73,10 @@ function Sidebar({children}) {
           </NavLink>
         ))}
       </div>
-      <main>{children}</main>
+      <div className='col'>
+        <AdminNav/>
+        {children}
+        </div>
     </div>
   );
 }

@@ -1,32 +1,36 @@
-import Login from "./pages/login/Login";
+import { useContext  } from 'react'
 import {Routes,Route} from "react-router-dom"
-import Layout from "./components/Layout";
-import Missing from "./pages/Missing";
-import RequireAuth from "./components/RequireAuth";
-import Dashboard from "./pages/dashboard/Dashboard";
-import Product from "./pages/products/Product";
-import Sidebar from "./components/Sidebar";
+import Login from "./pages/Login";
+import "bootstrap/dist/css/bootstrap.min.css"
+import {Container} from "react-bootstrap"
+import NavBar from "./components/Navbar";
+import { AuthContextProvider } from './context/AuthContext';
+
 
 function App() {
+  // const {user,token,ToastContainer}=useContext(AuthContextProvider)
   return (
+    <>
+    <Container className="text-secondary">
+    <NavBar/>
+    {/* <ToastContainer/> */}
     <Routes>
-      
-         {/* Public routes */}
-        <Route path="login" element={<Login/>} />
-        
-        {/* Private routes */}
-        <Route  element={<Layout/>} >
-        <Route  element={<RequireAuth/>}>
-          <Route path="/" element={<Dashboard/>} />
-          <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/product" element={<Product/>} />
-        </Route>
-      </Route>
+      {/* <Route path="/register" element={<Register/>} /> */}
+      <Route path="/login" element={<Login/>} />
+      {/* <Route path="/" element={<Home/>} />
+      <Route path="/forgot-password" element={<ForgotPassword/>} />
+      <Route path="/reset-password/:userId" element={<ResetPassword/>} />
+      <Route element={<PrivateRoutes token={token}/>}>
+              <Route path="/users" element={<Users/>} />
+              <Route path="/profile" element={<Profile/>} />
+          </Route> */}
 
-       {/* catch all */}
-       <Route path="*" element={<Missing/>} />
     </Routes>
+    </Container>
+      
+    </>
     
+
   );
 }
 
